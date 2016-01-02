@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/edavioc/.oh-my-zsh
+export ZSH=/home/davidoc/.oh-my-zsh
 
 #source ~/testfarts
 
@@ -84,4 +84,4 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /home/edavioc/git/unacceptable_not_found/command_not_found_zsh
+source /home/davidoc/git/unacceptable_not_found/command_not_found_zsh

@@ -1,4 +1,4 @@
-URxvt.perl-ext-common: default,clipboard,resize-font
+URxvt.perl-ext-common: default,clipboard,resize-font,matcher
 URxvt.iso14755: False
 URxvt.keysym.Shift-Control-C: perl:clipboard:copy
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste

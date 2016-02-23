@@ -18,12 +18,19 @@
 exec --no-startup-id /usr/bin/gnome-settings-daemon
 exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id nm-applet            #network applet
-exec --no-startup-id xautolock -time 5 -locker "i3lock -i /home/edavioc/Pictures/lockscreen.png"
-exec feh --bg-center /home/edavioc/Pictures/elxsolarized.png   #wallpaper
+exec --no-startup-id xautolock -time 5 -locker "i3lock -i /home/davidoc/Pictures/lock2.png -t"
+exec feh --bg-center /home/davidoc/Pictures/hardwired3.png  #wallpaper
 
 # Screen alignment
-exec xrandr --output DP1 --mode 1920x1080 --left-of eDP1
-exec xrandr --output eDP1 --mode 1920x1080 --right-of DP1
+#exec xrandr --output DP1 --mode 1920x1080 --left-of eDP1
+#exec xrandr --output eDP1 --mode 1920x1080 --right-of DP1
+#exec xrandr --output DP2 --mode 1920x1080 --right-of eDP1
+
+# Set pop-ups to show smartly(?)
+popup_during_fullscreen smart
+
+# Have i3 remember what previous tab you were in
+workspace_auto_back_and_forth yes
 
 # Use the windows (refuse to call windows "super") key as mod. (Alt is Mod1)
 set $mod Mod1
@@ -34,20 +41,22 @@ font pango: DejaVu Sans 10
 # Toggle borders with Mod+borders
 bindsym $mod+b border toggle
 
+bindsym --release $mod+button2 kill
+
 # Standard windows start without border or titlebar
 #new_window none
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal, I use urxvt-256color
-bindsym $mod+Return exec i3-sensible-terminal
+# start a terminal, I use urxvt-256color-unicode
+bindsym $mod+Return exec /usr/bin/urxvt -e /bin/zsh
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+# start rofi (a program launcher)
+bindsym $mod+d exec rofi -show run 
 
 # Navigation and window movement,
 # rebound to offer vim-like controls
@@ -88,7 +97,7 @@ bindsym $mod+shift+comma move workspace to output left
 
 # Named workspaces
 set $ws1 "1: "
-set $ws2 "2: "
+set $ws2 "2:  "
 set $ws3 "3: "
 set $ws4 "4: nxclient"
 set $ws5 "5: citrix"
@@ -124,6 +133,10 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
+
+exec --no-startup-id "i3-msg 'workspace 1: ; append_layout /home/davidoc/.i3/layouts/ws1.json'"
+#exec --no-startup-id "i3-msg 'workspace 2:  ; append_layout /home/davidoc/.i3/layouts/ws2.json'"
+exec --no-startup-id "i3-msg 'workspace 4: nxclient; append_layout /home/davidoc/.i3/layouts/ws4.json'"
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -199,12 +212,12 @@ client.urgent           #002b36 #dc322f #fdf6e3 #002b36
 # floating windows
 #for_window [title="NoMachine"] floating enable
 for_window [class="chrome"] border pixel 1
+for_window [instance="urxvt"] border pixel 2 
 
 
 # auto-assign windows to specific workspaces
 assign [class="Pidgin"] $ws3 
 assign [class="NoMachine"] $ws4
-# for dem pidgins - doesn't consider a comment on the same line to BE a comment
 #assign [class="Wfica"] $ws5
 
 # disable auto focus when mouse moves over window
@@ -214,12 +227,12 @@ focus_follows_mouse no
 force_focus_wrapping no
 
 # Configure screen-block command
-bindsym Control+$mod+l  exec vlock; exec /home/edavioc/scripts/pausespotify.sh; exec i3lock -i /home/edavioc/Pictures/lockscreen.png 
+bindsym Control+$mod+l  exec vlock; exec /home/davidoc/scripts/pausespotify.sh; exec i3lock -i /home/davidoc/Pictures/lock2.png -t
 #bindsym Control+$mod+l exec i3lock -c 005088 
 
 # Reverse screenshot logic: Printscreen lets you select an area to capture
 # alt-Printscreen captures the entire desktop
 
-bindsym --release Print exec scrot -s /tmp/$(hostname)-$(date +%F_%R:%S).png
+#bindsym --release Print exec scrot -s /tmp/$(hostname)-$(date +%F_%R:%S).png
 
-bindsym Mod1+Print exec scrot /tmp/screenshot-$(hostname)-$(date +%F_%R:%S).png
+#bindsym Mod1+Print exec scrot /tmp/screenshot-$(hostname)-$(date +%F_%R:%S).png

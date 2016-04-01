@@ -18,9 +18,9 @@
 exec --no-startup-id /usr/bin/gnome-settings-daemon
 exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id nm-applet            #network applet
-#exec --no-startup-id xautolock -time 5 -locker "i3lock -i /home/edavioc/Pictures/lock2.png -t"
+#exec --no-startup-id xautolock -time 5 -locker "i3lock -i /home/davidoc/Pictures/lock2.png -t"
 exec --no-startup-id xautolock -time 5 -locker "light-locker"
-#exec feh --bg-center /home/edavioc/Pictures/hardwired3.png  #wallpaper
+#exec feh --bg-center /home/davidoc/Pictures/hardwired3.png  #wallpaper
 exec --no-startup-id nitrogen --restore
 
 # Screen alignment
@@ -136,9 +136,9 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
-exec --no-startup-id "i3-msg 'workspace 1: ; append_layout /home/edavioc/.i3/layouts/ws1.json'"
-#exec --no-startup-id "i3-msg 'workspace 2:  ; append_layout /home/edavioc/.i3/layouts/ws2.json'"
-exec --no-startup-id "i3-msg 'workspace 4: nxclient; append_layout /home/edavioc/.i3/layouts/ws4.json'"
+exec --no-startup-id "i3-msg 'workspace 1: ; append_layout /home/davidoc/.i3/layouts/ws1.json'"
+#exec --no-startup-id "i3-msg 'workspace 2:  ; append_layout /home/davidoc/.i3/layouts/ws2.json'"
+exec --no-startup-id "i3-msg 'workspace 4: nxclient; append_layout /home/davidoc/.i3/layouts/ws4.json'"
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -237,8 +237,8 @@ focus_follows_mouse no
 force_focus_wrapping no
 
 # Configure screen-block command
-#bindsym Control+$mod+l  exec vlock; exec /home/edavioc/scripts/pausespotify.sh; exec i3lock -i /home/edavioc/Pictures/lock2.png -t
-#bindsym Control+$mod+l  exec vlock; exec /home/edavioc/scripts/pausespotify.sh; exec light-locker
+#bindsym Control+$mod+l  exec vlock; exec /home/davidoc/scripts/pausespotify.sh; exec i3lock -i /home/davidoc/Pictures/lock2.png -t
+#bindsym Control+$mod+l  exec vlock; exec /home/davidoc/scripts/pausespotify.sh; exec light-locker
 #bindsym Control+$mod+l exec i3lock -c 005088 
 
 # Reverse screenshot logic: Printscreen lets you select an area to capture

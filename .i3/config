@@ -18,13 +18,15 @@
 exec --no-startup-id /usr/bin/gnome-settings-daemon
 exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id nm-applet            #network applet
-exec --no-startup-id xautolock -time 5 -locker "i3lock -i /home/davidoc/Pictures/lock2.png -t"
-exec feh --bg-center /home/davidoc/Pictures/hardwired3.png  #wallpaper
+#exec --no-startup-id xautolock -time 5 -locker "i3lock -i /home/edavioc/Pictures/lock2.png -t"
+exec --no-startup-id xautolock -time 5 -locker "light-locker"
+#exec feh --bg-center /home/edavioc/Pictures/hardwired3.png  #wallpaper
+exec --no-startup-id nitrogen --restore
 
 # Screen alignment
-#exec xrandr --output DP1 --mode 1920x1080 --left-of eDP1
-#exec xrandr --output eDP1 --mode 1920x1080 --right-of DP1
-#exec xrandr --output DP2 --mode 1920x1080 --right-of eDP1
+exec xrandr --output DP1 --mode 1920x1080 --left-of eDP1
+exec xrandr --output eDP1 --mode 1920x1080 --right-of DP1
+exec xrandr --output DP2 --mode 1920x1080 --right-of eDP1
 
 # Set pop-ups to show smartly(?)
 popup_during_fullscreen smart
@@ -134,9 +136,9 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
-exec --no-startup-id "i3-msg 'workspace 1: ; append_layout /home/davidoc/.i3/layouts/ws1.json'"
-#exec --no-startup-id "i3-msg 'workspace 2:  ; append_layout /home/davidoc/.i3/layouts/ws2.json'"
-exec --no-startup-id "i3-msg 'workspace 4: nxclient; append_layout /home/davidoc/.i3/layouts/ws4.json'"
+exec --no-startup-id "i3-msg 'workspace 1: ; append_layout /home/edavioc/.i3/layouts/ws1.json'"
+#exec --no-startup-id "i3-msg 'workspace 2:  ; append_layout /home/edavioc/.i3/layouts/ws2.json'"
+exec --no-startup-id "i3-msg 'workspace 4: nxclient; append_layout /home/edavioc/.i3/layouts/ws4.json'"
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -190,23 +192,30 @@ bar {
         status_command i3status
 	font pango: DejaVu Sans , FontAwesome 10
         colors {
-      background #002b36
-      statusline #839496
-      separator  #586e75
-      focused_workspace  #b58900 #b58900 #002b36
-      active_workspace   #586e75 #586e75 #002b36
-      inactive_workspace #073642 #002b36 #839496
-      urgent_workspace   #dc322f #dc322f #fdf6e3
+      background #22221b
+      statusline #36a166
+      separator  #7d9726
+      focused_workspace  #a5980d #a5980d #302f27
+      active_workspace   #7d9726 #7d9726 #302f27
+      inactive_workspace #22221b #6c6b5a #36a166
+      urgent_workspace   #ba6236 #ba6236 #f4f3ec
         }
 }
 
 
-#client.focused          #002b36 #586e75 #fdf6e3 #268bd2
-client.focused        #002b36 #073642 #fdf6e3 #073642
-client.focused_inactive #002b36 #073642 #839496 #268bd2
-#client.unfocused        #002b36 #073642 #839496 #073642
-client.unfocused          #002b36 #586e75 #839496 #268bd2
-client.urgent           #002b36 #dc322f #fdf6e3 #002b36
+#client.focused          #6c6b5a #7d9726 #f4f3ec #36a166
+
+#client.focused        #6c6b5a #22221b #f4f3ec #22221b
+#client.focused_inactive #6c6b5a #22221b #36a166 #36a166
+
+client.focused        #6c6b5a #22221b #f4f3ec #22221b
+client.focused_inactive #6c6b5a #22221b #36a166 #36a166
+
+#client.unfocused        #6c6b5a #22221b #36a166 #22221b
+
+client.unfocused          #6c6b5a #7d9726 #302f27 #36a166
+#client.urgent           #6c6b5a #ba6236 #f4f3ec #6c6b5a
+client.urgent           #6c6b5a #ba6236 #f4f3ec #6c6b5a
 
 
 # floating windows
@@ -227,12 +236,13 @@ focus_follows_mouse no
 force_focus_wrapping no
 
 # Configure screen-block command
-bindsym Control+$mod+l  exec vlock; exec /home/davidoc/scripts/pausespotify.sh; exec i3lock -i /home/davidoc/Pictures/lock2.png -t
+#bindsym Control+$mod+l  exec vlock; exec /home/edavioc/scripts/pausespotify.sh; exec i3lock -i /home/edavioc/Pictures/lock2.png -t
+#bindsym Control+$mod+l  exec vlock; exec /home/edavioc/scripts/pausespotify.sh; exec light-locker
 #bindsym Control+$mod+l exec i3lock -c 005088 
 
 # Reverse screenshot logic: Printscreen lets you select an area to capture
 # alt-Printscreen captures the entire desktop
 
-#bindsym --release Print exec scrot -s /tmp/$(hostname)-$(date +%F_%R:%S).png
+bindsym --release Print exec scrot -s /tmp/$(hostname)-$(date +%F_%R:%S).png
 
-#bindsym Mod1+Print exec scrot /tmp/screenshot-$(hostname)-$(date +%F_%R:%S).png
+bindsym Mod1+Print exec scrot /tmp/screenshot-$(hostname)-$(date +%F_%R:%S).png

@@ -58,7 +58,7 @@ bindsym $mod+Return exec /usr/bin/urxvt -e /bin/zsh
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec rofi -show run 
+bindsym $mod+d exec dmenu_run 
 
 # Navigation and window movement,
 # rebound to offer vim-like controls

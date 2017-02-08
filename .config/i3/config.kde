@@ -15,21 +15,26 @@
 
 
 # first things first - get some gnome goin'
-exec --no-startup-id /usr/libexec/gnome-settings-daemon
-exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,gpg,secrets
+#exec --no-startup-id /usr/libexec/gnome-settings-daemon
+#exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,gpg,secrets
 #exec --no-startup-id nvidia-settings --assign CurrentMetaMode="HDMI-0:1920x1080_60 +0+0 { ForceFullCompositionPipeline = On }, DVI-I-1:1920x1080_60 +1920+0 { ForceFullCompositionPipeline = On }"
 #exec --no-startup-id gnome-keyring-daemon
-exec --no-startup-id nm-applet            #network applet
+#exec --no-startup-id nm-applet            #network applet
 #exec --no-startup-id xautolock -time 5 -locker "i3lock -i /home/davidoc/Pictures/lock2.png -t"
-exec --no-startup-id xautolock -time 5 -locker "light-locker"
+#exec --no-startup-id xautolock -time 5 -locker "light-locker"
 #exec feh --bg-center /home/davidoc/Pictures/hardwired3.png  #wallpaper
 exec --no-startup-id nitrogen --restore
 exec_always --no-startup-id compton
+
+## Plasma Integration
+# Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everything)
+exec --no-startup-id wmctrl -c Plasma
+
 # Screen alignment
 #exec xrandr --output DP1 --mode 1920x1080 --left-of eDP1
 #exec xrandr --output eDP1 --mode 1920x1080 --right-of DP1
 #exec xrandr --output DP2 --mode 1920x1080 --right-of eDP1
-exec xinput --set-prop 9 'libinput Accel Speed' -0.9
+exec_always xinput --set-prop 9 'libinput Accel Speed' -0.9
 # Set pop-ups to show smartly(?)
 popup_during_fullscreen smart
 
@@ -37,7 +42,9 @@ popup_during_fullscreen smart
 workspace_auto_back_and_forth yes
 
 # Use the windows (refuse to call windows "super") key as mod. (Alt is Mod1)
-set $mod Mod1
+#set $mod Mod1 
+#set $mod Super_L, Super_R
+set $mod Mod4
 
 # The font we use
 font pango: DejaVu Sans 10
@@ -45,10 +52,10 @@ font pango: DejaVu Sans 10
 #Media player controls
 #bindsym XF86AudioPlay exec playerctl play
 #bindsym XF86AudioPause exec playerctl pause
-bindcode 164 exec --no-startup-id playerctl play
-#bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+#bindcode 164 exec --no-startup-id playerctl play
+##bindsym XF86AudioPause exec playerctl pause
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
 
 # Toggle borders with Mod+borders
 bindsym $mod+b border toggle
@@ -64,7 +71,8 @@ floating_modifier $mod
 # start a terminal, I use urxvt-256color-unicode
 #bindsym $mod+Return exec /usr/bin/urxvt256c-ml -e /bin/zsh
 #bindsym $mod+Return exec /usr/bin/urxvt256c-ml
-bindsym $mod+Return exec gnome-terminal
+#bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec konsole
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -156,7 +164,7 @@ exec --no-startup-id "i3-msg 'workspace 4: nxclient; append_layout /home/davidoc
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-msg exit"
+#bindsym $mod+Shift+e exec "i3-msg exit"
 
 # disable mouse warping
 mouse_warping none
@@ -291,6 +299,7 @@ for_window [instance="urxvt"] border pixel 2
 for_window [instance="gnome-terminal"] border pixel 2 
 for_window [class="plasmashell"] floating enable;
 for_window [class="Plasma"] floating enable; border none
+for_window [title="Desktop — Plasma"] kill; floating enable; border none
 for_window [title="plasma-desktop"] floating enable; border none
 for_window [title="win7"] floating enable; border none
 for_window [class="krunner"] floating enable; border none
@@ -324,4 +333,4 @@ bindsym --release Print exec scrot -s /tmp/$(hostname)-$(date +%F_%R:%S).png
 
 bindsym Mod1+Print exec scrot /tmp/screenshot-$(hostname)-$(date +%F_%R:%S).png
 #exec --no-startup-id bash /home/davidoc/.config/polybar/launch.sh 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh

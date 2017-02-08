@@ -1,0 +1,308 @@
+[settings]
+; throttle-ms = 50
+; throttle-limit = 3
+screenchange-reload = true
+
+[bar/centre]
+monitor = HDMI-0
+monitor-strict = true
+;monitor-fallback = eDP1
+
+width = 100%
+height = 20
+clickareas = 35
+;wm-restack = i3
+
+;background = #000000
+;background = #031A1613
+background = ${xrdb:color0:#031A1613}
+foreground = #ccffff
+linecolor = #ccffff
+spacing = 4
+lineheight = 16
+padding-right = 5
+module-margin-left = 3
+module-margin-right = 3
+
+tray-position = right
+
+
+font-0 = ${fonts.font0}
+font-1 = ${fonts.font1}
+font-2 = ${fonts.font2}
+
+modules-left = i3 xwindow
+;modules-left = powermenu i3 xwindow
+;modules-right = volume wired-network battery date
+modules-right = wired-network filesystem cpu volume date
+;modules-right = volume backlight wireless-network wired-network battery date
+;modules-right = volume backlight wired-network battery date
+
+[bar/mon2]
+inherit = bar/centre
+monitor = DP-1
+monitor-strict = true
+[bar/mon3]
+inherit = bar/centre
+monitor = eDP-1
+monitor-strict = false
+
+[module/battery]
+type = internal/battery
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+
+ramp-capacity-0 = 
+ramp-capacity-0-foreground = #f53c3c
+ramp-capacity-1 = 
+ramp-capacity-1-foreground = #ffa900
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
+bar-capacity-fill = █
+bar-capacity-fill-foreground = #ddffffff
+bar-capacity-fill-font = 3
+bar-capacity-empty = █
+bar-capacity-empty-font = 3
+bar-capacity-empty-foreground = #44ffffff
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+;format = <label> 
+label = cpu %percentage-cores%%
+
+ramp-coreload-0 = ▁
+;ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+;ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+;ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+;ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+;ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+;ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+;ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+;ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
+[module/date]
+type = internal/date
+date =    %%{F#99}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
+date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
+
+[module/memory]
+type = internal/memory
+format = <label> <bar-used>
+label = ram
+
+bar-used-width = 30
+bar-used-foreground-0 = #aaff77
+bar-used-foreground-1 = #aaff77
+bar-used-foreground-2 = #fba922
+bar-used-foreground-3 = #ff5555
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-indicator-foreground = #ff
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = #444444
+
+[module/wireless-network]
+type = internal/network
+interface = wlp3s0 
+interval = 3.0
+ping-interval = 10
+
+format-connected = <ramp-signal> <label-connected>
+label-connected = %essid%
+label-disconnected =    not connected
+label-disconnected-foreground = #66
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+
+animation-packetloss-0 = 
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 
+animation-packetloss-1-foreground = ${bar/centre.foreground}
+animation-packetloss-framerate = 500
+
+[module/wired-network]
+type = internal/network
+interface = enp3s0
+interval = 3.0
+
+;label-connected =    %{T3}%local_ip%%{T-}
+label-connected =    %local_ip%
+label-disconnected-foreground = #66
+
+[module/volume]
+type = internal/volume
+;speaker-mixer = Speaker
+;headphone-mixer = Headphone
+;headphone-id = 9
+
+format-volume = <ramp-volume> <label-volume>
+label-muted =   muted
+label-muted-foreground = #66
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+
+[module/powermenu]
+type = custom/menu
+
+format-padding = 5
+
+label-open = 
+label-close = 
+
+menu-0-0 = Log Out
+menu-0-0-foreground = #fba922
+menu-0-0-exec = bspc quit -1
+menu-0-1 = Reboot
+menu-0-1-foreground = #fba922
+menu-0-1-exec = menu_open-1
+menu-0-2 = Power Off
+menu-0-2-foreground = #fba922
+menu-0-2-exec = menu_open-2
+menu-0-3 = Suspend
+menu-0-3-foreground = #fba922
+menu-0-3-exec = systemctl suspend
+
+menu-1-0 = Cancel
+menu-1-0-foreground = #fba922
+menu-1-0-exec = menu_open-0
+menu-1-1 = Reboot
+menu-1-1-foreground = #fba922
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = Power Off
+menu-2-0-foreground = #fba922
+menu-2-0-exec = sudo poweroff
+menu-2-1 = Cancel
+menu-2-1-foreground = #fba922
+menu-2-1-exec = menu_open-0
+
+[module/i3]
+type = internal/i3
+pin-workspaces = true
+strip-wsnumbers = false
+index-sort = true
+enable-click = true 
+enable-scroll = true
+wrapping-scroll = false
+
+reverse-scroll = false
+fuzzy-match = true
+label-focused = %name%
+label-focused-foreground = #ffffff
+label-focused-background = #3f3f3f
+label-focused-underline = #ffffff
+label-focused-padding = 4
+
+label-unfocused = %index%
+label-unfocused-padding = 4
+label-visible = %icon%%name%
+;label-visible-foreground = #ffffff
+;label-focused-background = #4f4f4f
+label-visible-underline = #3f3f3f
+label-visible-padding = 4
+label-urgent = %name%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-padding = 4
+[module/clock]
+type = internal/date
+interval = 2
+date = %%{F#999}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
+
+[fonts]
+font0 = FontAwesome:size=10;0
+font1 = NotoSans-Regular:size=8;0
+font2 = MaterialIcons:size=10;0
+
+[module/xwindow]
+type = internal/xwindow
+label = %title%
+label-maxlen = 100
+
+[module/backlight]
+type = internal/xbacklight
+
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+;card = intel_backlight
+output = eDP-1
+enable-scroll = true
+
+format = <label>
+
+; Available tokens:
+;   %percentage% (default)
+label = ☼ %percentage%%
+
+; Only applies if <ramp> is used
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+; Only applies if <bar> is used
+bar-width = 10
+bar-indicator = |
+bar-fill = ─
+bar-empty = ─
+
+[module/filesystem]
+type = internal/fs
+
+; Mountpoints to display
+mount-0 = /
+
+label-mounted = %free%
+
+; Seconds to sleep between updates
+; Default: 30
+interval = 10
+
+; Display fixed precision values
+; Default: false
+fixed-values = true
+
+; Spacing between entries
+; Default: 2
+spacing = 4<Paste>
+; vim:ft=dosini

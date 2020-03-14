@@ -14,30 +14,32 @@
 # ----------------------------------------------------------------------------
 
 
-# first things first - get some gnome goin'
-exec --no-startup-id /usr/libexec/gnome-settings-daemon
-exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,gpg,secrets
-#exec --no-startup-id nvidia-settings --assign CurrentMetaMode="HDMI-0:1920x1080_60 +0+0 { ForceFullCompositionPipeline = On }, DVI-I-1:1920x1080_60 +1920+0 { ForceFullCompositionPipeline = On }"
+exec_always --no-startup-id dunst -config /home/davidoc/.config/dunst/dunstrc1
+#exec --no-startup-id /usr/libexec/gnome-settings-daemon
+##exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,gpg,secrets
+#exec --no-startup-id echo "$0: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
+#exec --no-startup-id dbus-send --session --print-reply=literal --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:i3" "string:$DESKTOP_AUTOSTART_ID"
+#exec --no-startup-id nvidia-settings --assign CurrentMetaMode="HDMI-0:1920x1080_60 +0+0 { ForceFullCompositionPipeline = On }"
 #exec --no-startup-id gnome-keyring-daemon
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
+exec_always --no-startup-id gnome-power-manager
 exec --no-startup-id nm-applet            #network applet
-#exec --no-startup-id xautolock -time 5 -locker "i3lock -i /home/davidoc/Pictures/lock2.png -t"
-exec --no-startup-id xautolock -time 5 -locker "light-locker"
-#exec feh --bg-center /home/davidoc/Pictures/hardwired3.png  #wallpaper
+#exec --no-startup-id xautolock -time 5 -locker "light-locker"
 exec --no-startup-id nitrogen --restore
-exec_always --no-startup-id compton
-# Screen alignment
-#exec xrandr --output DP1 --mode 1920x1080 --left-of eDP1
-#exec xrandr --output eDP1 --mode 1920x1080 --right-of DP1
-#exec xrandr --output DP2 --mode 1920x1080 --right-of eDP1
-exec xinput --set-prop 9 'libinput Accel Speed' -0.9
+exec --no-startup-id compton
+
+# Set mouse sensitivity
+#exec xinput --set-prop 13 'libinput Accel Speed' -0.9
+exec xinput --set-prop 8 'libinput Accel Speed' -0.9
 # Set pop-ups to show smartly(?)
 popup_during_fullscreen smart
+#exec --no-startup-id wmctrl -c Plasma
 
 # Have i3 remember what previous tab you were in
 workspace_auto_back_and_forth yes
 
 # Use the windows (refuse to call windows "super") key as mod. (Alt is Mod1)
-set $mod Mod1
+set $mod Mod4
 
 # The font we use
 font pango: DejaVu Sans 10
@@ -45,10 +47,10 @@ font pango: DejaVu Sans 10
 #Media player controls
 #bindsym XF86AudioPlay exec playerctl play
 #bindsym XF86AudioPause exec playerctl pause
-bindcode 164 exec --no-startup-id playerctl play
-#bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+#bindcode 164 exec --no-startup-id playerctl play
+#bindsym XF86AudioPlay exec --no-startup-id playerctl play
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
 
 # Toggle borders with Mod+borders
 bindsym $mod+b border toggle
@@ -64,7 +66,9 @@ floating_modifier $mod
 # start a terminal, I use urxvt-256color-unicode
 #bindsym $mod+Return exec /usr/bin/urxvt256c-ml -e /bin/zsh
 #bindsym $mod+Return exec /usr/bin/urxvt256c-ml
-bindsym $mod+Return exec gnome-terminal
+#bindsym $mod+Return exec gnome-terminal
+#bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -286,22 +290,42 @@ client.background       $base07
 # floating windows
 #for_window [title="NoMachine"] floating enable
 for_window [class="chrome"] border pixel 1
+#for_window [class="chromium-vaapi"] border pixel 1
+for_window [class="[Cc]hromium"] border pixel 1
+for_window [class="Chromium"] border pixel 1
 for_window [class="Spotify"] border pixel 1
 for_window [instance="urxvt"] border pixel 2 
-for_window [instance="gnome-terminal"] border pixel 2 
+#for_window [instance="gnome-terminal"] border pixel 2 
+#for_window [instance="termite"] border pixel 1 
+for_window [instance="alacritty"] border pixel 1 
+for_window [class="[Aa]lacritty"] border pixel 1 
 for_window [class="plasmashell"] floating enable;
-for_window [class="Plasma"] floating enable; border none
+#for_window [class="Plasma"] floating enable; border none
+for_window [title="Desktop — Plasma"] kill; floating enable; border none
 for_window [title="plasma-desktop"] floating enable; border none
 for_window [title="win7"] floating enable; border none
 for_window [class="krunner"] floating enable; border none
 for_window [class="Kmix"] floating enable; border none
 for_window [class="Klipper"] floating enable; border none
 for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class=".*bfrogproj.*"] floating enable; border none
+
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_role="About"] floating enable 
+
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
 # auto-assign windows to specific workspaces
 #
 assign [class="Steam"] $ws1
 #assign [class="Wfica"] $ws5
 assign [class="Google-chrome"] $ws4
+assign [class="Chromium"] $ws4
+assign [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $ws3
 #assign [class="Spotify"] $ws8
 #for_window [class="Spotify"] move to workspace $ws8
 #assign [class="Wfica"] $ws5
@@ -325,3 +349,5 @@ bindsym --release Print exec scrot -s /tmp/$(hostname)-$(date +%F_%R:%S).png
 bindsym Mod1+Print exec scrot /tmp/screenshot-$(hostname)-$(date +%F_%R:%S).png
 #exec --no-startup-id bash /home/davidoc/.config/polybar/launch.sh 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+#xset s off
+#xset -dpms

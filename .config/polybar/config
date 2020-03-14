@@ -280,6 +280,7 @@ ramp-1 = 🌔
 ramp-2 = 🌓
 ramp-3 = 🌒
 ramp-4 = 🌑
+
 ; Only applies if <bar> is used
 bar-width = 10
 bar-indicator = |
